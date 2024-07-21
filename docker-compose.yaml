@@ -1,0 +1,17 @@
+name: php56-apache
+
+services:
+  server:
+    container_name: php56-apache-server
+    platform: linux/arm64/v8
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ${SOURCE_PATH}:/var/www/html
+      - ${SOURCE_PATH}/log:/var/log/apache2
+      - ./apache2/sites-available:/etc/apache2/sites-available
+      - ./apache2/apache2.conf:/etc/apache2/apache2.conf
+      - ./apache2/ports.conf:/etc/apache2/ports.conf
+    ports:
+      - ${PORT}:80
